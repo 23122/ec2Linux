@@ -1,0 +1,357 @@
+-yum업데이트
+sudo yum -y update
+
+-자바설치
+sudo yum list *jdk-devel
+sudo yum install -y 자바버전
+
+-wget설치
+sudo yum install -y wget
+
+-톰캣설치
+wget 톰캣주소
+gunzip 톰캣파일
+tar -xf 톰캣파일
+
+-톰캣폴더이동
+sudo mv 톰켓폴더 /usr/local/
+cd /usr/local/
+
+-시간변경
+ls -al /etc/localtime
+sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+ls -al /etc/localtime
+date
+
+-server.xml변경
+cd /usr/local/apache/conf/
+sudo yum install -y vim
+vim sever.xml
+ <Host name="localhost"  appBase="webapps"
+              unpackWARs="false" autoDeploy="false">
+              <Context docBase="/home/ec2-user/web/root" path="" reloadable="false" />
+i=insert
+:wq
+
+-톰캣실행
+/usr/local/apache-tomcat-9.0.63/bin/shutdown.sh
+./shutdown.sh
+/usr/local/apache-tomcat-9.0.63/bin/startup.sh
+./startup.sh
+
+-로그기록
+tail -f /usr/local/apache-tomcat-9.0.63/logs/catalina.out
+
+-war파일실행
+jar -xvf <war파일이름>.war 입력(예 : jar xvf test.war)
+
+-폴더권한변경
+chown 소유주 변경할 파일
+
+cd /usr/local/apache-tomcat-9.0.63/conf/
+
+/////////////////////////////////////////////////////////////////////////////////////////
+https://blog.naver.com/develop_z/222705759781
+> 이동하기
+
+ # cd ~ // home dir로 이동
+
+ # cd .. // 상위 dir로 이동
+
+ # cd . // 현재 dir
+
+ # cd 폴더명 // 해당 폴더로 이동
+
+​
+
+ # ​pwd //현재 작업 중인 dir 표시 (print working dir)
+
+ # ​ls //현재 dir에 있는 파일/폴더들 표시 (list)
+
+ # man 명령어 // 명령어 메뉴얼 
+
+ # cp // 복사(copy)
+
+ # touch // 손대서 최근접속으로 변경 *해당 폴더없으면 오늘 날짜로 폴더 생성
+
+ # mv // 이동 (move)
+
+ # mkdir // 폴더 만들기
+
+ # tree // 폴더 구조 가시화
+
+> 내용보기
+
+  # cat 
+
+  # more // 이동을 화살표로 <- ->
+
+  # less // */검색키워드 ; 해당 키워드 highlight해서 보여줌
+
+​
+
+> 파일 만들기 - 문서편집기 'gedit' & 'vi'
+
+ # gedit 파일명.확장자 // 파일 만들기
+
+ # gcc -o 파일명2 파일명1.확장자 // 파일명1의 실행파일을 파일명2이름으로 만들기
+
+ # ./파일명 // 현재 폴더에 있는 파일명 파일 실행
+
+ # vi 파일명 // 파일 들어가기
+
+   # i //삽입모드  -> ESC //모드 빠져나오기  -> ​:wq! //저장 후 빠져나오기
+
+​
+
+> 삭제
+
+ # rm // remove 삭제
+
+ # rm -r 폴더명 // 폴더 지우기
+
+ # rmdir 폴더명 // 폴더 지우기
+
+ # -f // 강제
+
+ # -rf *//현재 dir내 모든 폴더,파일 삭제 
+
+​
+
+> 시스템 종료 방법 - root 관리자만 가능!
+
+ # shutdown -옵션 시간 //즉시 종료 
+
+ # shutdown -h now //즉시 종료 후 시스템 정지
+
+ # shutdown -h +10 //10분 후 종료
+
+ # shutdown -r now //즉시 시스템 재가동
+
+ # shutdown -r 22:00 //22시에 재가동 (예약)
+
+ # shutdown -c //종료 예약 취소
+
+  옵션 -k //시스템 종료하지 않고 경고메시지 전달
+
+         -h // 종료후 시스템 정지
+
+​
+
+> 종료방법 & 로그아웃
+
+ # q //quit
+
+ # x //exit
+
+ # ctrl + d  
+
+ # logout
+
+ # ctrl + c  //비정상 종료
+
+​
+
+# ping www.~~사이트 //외부 사이트 호출
+
+​
+
+> 사용자
+
+ # useradd 사용자명 -> # ​passwd 사용자명 //사용자 추가
+
+ # ​userdel -r 사용자명 //사용자 삭제
+
+​
+
+소프트웨어 패키지 관리
+
+1) RPM
+
+- Redhat Package Manager
+
+- 형태) <패키지이름>-<버전>-<릴리즈번호>. <아키텍처>.rpm
+
+> 이용방법
+
+  - 설치 : #rpm -ivh <패키지 파일>           
+
+  - 업데이트 : #rpm -Uvh <패키지 파일>     //없으면 install 있으면 update
+
+  - 삭제 : #rpm -e <패키지 파일>         
+
+  - 설치여부 질의 : #rpm -qa <패키지 파일>     
+
+- 단점) 파일간의 의존성 문제에 민감, 최근 일부 미지원 추세
+
+​
+
+2) YUM
+
+- Yellow-dog Updater, Modified/Manager
+
+; rpm 관리를 위한 지원 툴 -> rpm명령의 의존성문제를 완전히 해결!
+
+ * RPM보다 좋지만 RPM으로만 설치가능한 애도 있음
+
+> 이용방법
+
+  - 설치 : #yum install <패키지 이름>       
+
+    ㄴ #yum -y install <패키지 이름>    
+
+  - 업데이트 : #yum -y update <패키지 이름>   
+
+     ㄴ 업데이트 가능 목록 확인 : #yum check-update
+
+  - 정보 확인) #yum info <패키지 이름>   
+
+  - 삭제 :  #yum remove <패키지 이름>   
+
+​
+
+*CentOS 패키지 종류
+
+ - base / Core : 기본적으로 배포판에 포함된 패키지
+
+ - updates : 배포판 발표 이후 버전이 업그레이드 된 패키지
+
+ - extras : 배포판에 없는 패키지지만 유용한 패키지 _ ncftp..
+
+ - development : 개발중인 패키지
+
+​
+
+3) DNF
+
+- Dandified YUM ; YUM의 차세대 버전
+
+   ㄴ YUM 성능, 메모리 사용량, 종속성 해결, 속도개선을 목표
+
+- CentOS에 기본 설치됨 (YUM으로 설치)
+
+​
+
+4) 패키지 관리 //source program 컴파일
+
+1. 소스 구하기 - 패키지 소스파일(주로 압축형태) wget 사이트/패키지
+
+2. 파일 묶음(압축) 풀기 tar xvfz 패키지(압축형태) | gun zip 압축파일 -> tar -xvf 파일이름 
+
+3. 소스 파일의 컴파일 및 실행파일 설치 ./configure && make && make install
+
+​
+
+파일 압축
+
+ .gz  .Z  .bz2  .zip   ...
+
+> 명령어
+
+ gzip | gunzip  // .gz형의 압축 | 압축해제
+
+ bzip2 | bunzip2  // .bz2의 압축 | 압축해제
+
+ tar cvfz 파일명 파일경로 // tar에 의한 묶기(압축)
+
+ tar xvfz 파일명 // tar에 의한 풀기(압축 해제)
+
+​
+
+파일 검색
+
+ #find / -name "파일명" ((-print)) //파일명으로 검색
+
+ #which 파일명 // path에 설정된 디렉토리만 검색, 파일이 있는 경로 출력
+
+ #whereis 파일명 //실행파일, 소스, 매뉴얼 검색, 파일있는 모든 경로 출력
+
+ #locate 파일명 //db에 등록되어 있는 파일만 검색
+
+* 상태 확인
+
+ #systemctl status 파일명  
+
+  -> 동작하고 있는지 확인가능! activate | inactivate(dead)
+
+​
+
+실행 예약
+
+: 작업(1회) 예약 명령어 at
+
+#at now +2minutes | 3:00pm   tomorrow | March 30 시간 ((날짜- 오늘이면 생략 가능))
+
+ at > 실행할 명령어 입력 
+
+ at > ctrl d //나가기
+
+#atq 예약 명령어 list 확인 
+
+#atrm 번호 예약 명령어 삭제
+
+​
+
+네트워크 관리
+
+- 가상머신이 GW, DHCP서버, DNS서버 의 기능도 담당
+
+> (재)시작 : #systemctl restart network | NetworkManager.service // centos 7 | 8
+
+> 명령어
+
+  - #ifconfig //네트워크 인터페이스를 설정하거나 확인
+
+  - #nslookup 사이트 //name server 룩업 => 사이트의 서버,주소 알려줌
+
+​
+
+​
+
+프로세스 관리
+
+> 프로세스 종류
+
+   - FG_foreground Process : 앞에서 실행돼서 명령어 실행하는 동안 다른 작업 불가
+
+   - BG_background Process : 뒤에서 실행됨 <<-- (명령어)&
+
+> 용어 
+
+   - PID_process id : 프로세스의 고유번호 
+
+   - 작업번호 : 현재 실행되고 있는 BG 작업의 번호
+
+> 명령어
+
+   #ps //process status 상태
+
+   #kill ((-9)) 프로세스번호 // 프로세스 ((강제)) 종료
+
+   #pstree // 전체적인 system그림
+
+   #top // table of process 시스템 프로세스&메모리 사용 현황
+
+   #fg //현재 fg에서 돌아가고 있는 작업 보여줌
+
+   #bg //현재 bg에서 돌아가고 있는 작업 보여줌
+
+   #w //로그인한 사용자 정보 출력
+
+> 상시 동작 프로세스(서비스) 관리
+
+ - demon 서비스 : 상시 시스템 내에서 동작하는 프로세스
+
+ - 명령어 : systemctl
+
+    #systemctl start/stop/restart/status 서비스이름 //지금만
+
+    #systemctl enable/disable 서비스이름 //항상
+
+
+  #ps -eaf //모든 프로세스 정보 확인
+
+  #ps aux //모든 프로세스 정보 확인
+
+
+*ctrl z // 잠자기
