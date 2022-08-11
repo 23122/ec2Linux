@@ -19,7 +19,7 @@ cd /usr/local/
 
 -시간변경
 ls -al /etc/localtime
-sudo ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+sudo ln -sf /usr/share/zoneinfo/Asia/Seoul/etc/localtime
 ls -al /etc/localtime
 date
 
@@ -34,13 +34,13 @@ i=insert
 :wq
 
 -톰캣실행
-/usr/local/apache-tomcat-9.0.63/bin/shutdown.sh
+/usr/local/<톰캣>/bin/shutdown.sh
 ./shutdown.sh
-/usr/local/apache-tomcat-9.0.63/bin/startup.sh
+/usr/local/<톰캣>/bin/startup.sh
 ./startup.sh
 
 -로그기록
-tail -f /usr/local/apache-tomcat-9.0.63/logs/catalina.out
+tail -f /usr/local/<톰캣>/logs/catalina.out
 
 -war파일실행
 jar -xvf <war파일이름>.war 입력(예 : jar xvf test.war)
@@ -48,7 +48,7 @@ jar -xvf <war파일이름>.war 입력(예 : jar xvf test.war)
 -폴더권한변경
 chown 소유주 변경할 파일
 
-cd /usr/local/apache-tomcat-9.0.63/conf/
+cd /usr/local/<톰캣>/conf/
 
 /////////////////////////////////////////////////////////////////////////////////////////
 https://blog.naver.com/develop_z/222705759781
