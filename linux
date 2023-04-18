@@ -19,7 +19,7 @@ cd /usr/local/
 
 -시간변경
 ls -al /etc/localtime
-sudo ln -sf /usr/share/zoneinfo/Asia/Seoul/etc/localtime
+sudo ln -sf /usr/share/zoneinfo/Asia/Seoul/ etc/localtime
 ls -al /etc/localtime
 date
 
